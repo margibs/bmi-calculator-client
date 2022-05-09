@@ -12,6 +12,8 @@ Run the BMI Calculator Server First to Activate the backend functionalities visi
 Start the App using:
 ### `npm start`
 
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+POST End Points are located on these link
+
+[http://localhost:5000/bmi-calculator/standard](http://localhost:3000/bmi-calculator/standard)
 
 
