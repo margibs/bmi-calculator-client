@@ -1,7 +1,10 @@
 ## Installing Dependencies 
 
-In the project directory, you can run:
+In the project directory, run:
 ### `npm install`
+
+Run the BMI Calculator Server First to Active the backend functionalities visit the link below:
+[BMI Calculator Server](https://github.com/margibs/bmi-calculator-server)
 
 Start the App using
 ### `npm start`
