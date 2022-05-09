@@ -9,23 +9,39 @@ const StandardBmi = () => {
     const [feet, setFeet] = useState(0);
     const [inches, setInches] = useState(0);
     const [bmi, setBmi] = useState('');
+    const [msg, setMsg] = useState('');
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const calculateBMI = async (event) => {
         event.preventDefault();
+        setIsLoading(true);
 
-        const result = await axios.post(bmiCalculatorStandard, 
-            {
-              "weight" : weight,
-              "feet" : feet,
-              "inches" : inches
-            }
-        );
+        try {
+            const result = await axios.post(bmiCalculatorStandard, 
+                {
+                "weight" : weight,
+                "feet" : feet,
+                "inches" : inches
+                }
+            );
 
-        setBmi(result.data.bmi);
+            setBmi(result.data.bmi);
+            setMsg(result.data.message);
+            setIsLoading(false);
+        } catch (error) {
+            setIsError(true);
+            setIsLoading(false);
+        }
     }
 
     return (
         <>
+            {isError && 
+                <div className="alert alert-danger">
+                    <strong>Network Error</strong> Please run the backend server.
+                </div> 
+            }
             <form onSubmit={(event) => calculateBMI(event)} className="mb-5">
                 <div className="form-group row mb-3 mt-2">
                     <label className='col-md-3 col-form-label'>Height (ft)</label>
@@ -45,12 +61,20 @@ const StandardBmi = () => {
                     </div>
                 </div>
                 <div className='col text-center'>
-                    <button className='btn btn-primary btn-block' type='submit'>Submit</button>
+                    {
+                        !isLoading ?
+                            <button className='btn btn-primary btn-block' type='submit'>Submit</button>
+                        :
+                            <div className="spinner-border" role="status">
+                                <span className="sr-only"></span>
+                            </div>
+                    }
                 </div>
+                
             </form>
 
             <div className='text-center'>
-                <h3>BMI: {bmi}</h3>
+                <h3>BMI: {bmi} <small className="text-muted">{msg}</small></h3>
             </div>
         </>
     )
