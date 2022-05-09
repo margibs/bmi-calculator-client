@@ -29,6 +29,7 @@ const StandardBmi = () => {
             setBmi(result.data.bmi);
             setMsg(result.data.message);
             setIsLoading(false);
+            setIsError(false);
         } catch (error) {
             setIsError(true);
             setIsLoading(false);
